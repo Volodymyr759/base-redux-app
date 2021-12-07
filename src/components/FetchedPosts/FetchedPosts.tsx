@@ -1,31 +1,39 @@
-import { useSelector } from "react-redux";
+// import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { fetchPosts } from "../../store/posts/actions";
+
 import Loader from "../Loader/Loader";
 import Post from "../Post/Post";
 
-const FetchedPosts = () => {
-    // @ts-ignore
-    const posts = useSelector(state => state.posts.fetchedPosts)
-    // @ts-ignore
-    const loading = useSelector(state => state.app.loading)
+export const FetchedPosts: React.FC = () => {
+    const { app, posts } = useTypedSelector(state => state)
+    const dispatch = useDispatch();
+    
+    // also usefull throw useEffect, not only clicking button:
+    // useEffect(() => {
+    //     dispatch(fetchPosts())
+    // }, [dispatch])
 
-    if (loading) {
+    if (app.loading) {
         return <Loader />
     }
 
-    if (!posts.length) {
+    if (!posts.fetchedPosts.length) {
         return (
             <button
                 className="btn btn-primary"
-                // @ts-ignore
                 onClick={() => dispatch(fetchPosts())}
             >
                 Load
             </button>
         )
     }
-    // @ts-ignore
-    return posts.map(post => <Post post={post} key={post.id} />)
+    return (
+        <>
+            {posts.fetchedPosts.map(post => <Post post={post} key={post.id} />)}
+        </>
+    )
 }
 
-export default FetchedPosts
+

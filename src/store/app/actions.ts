@@ -1,4 +1,10 @@
+import { Dispatch } from 'react';
 import { HIDE_LOADER, SHOW_LOADER, SHOW_ALERT, HIDE_ALERT } from "./types"
+
+interface IAction {
+    type: string;
+    payload?: string;
+}
 
 export function showLoader() {
     return {
@@ -13,8 +19,7 @@ export function hideLoader() {
 }
 
 export function showAlert(text: string) {
-    // @ts-ignore
-    return dispatch => {
+    return (dispatch: Dispatch<IAction>) => {
         dispatch({
             type: SHOW_ALERT,
             payload: text

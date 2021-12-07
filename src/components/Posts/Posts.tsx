@@ -1,21 +1,14 @@
 import Post from "../Post/Post";
-import { connect } from "react-redux";
-import { IAppState, IPost } from "../../store/types";
-import { Props } from "./types";
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
-const Posts = (props: Props): JSX.Element => {
-    if (!props.syncPosts.length) {
-        return <p>No posts yet</p>
-    }
+const Posts = (): JSX.Element => {
+    const { posts } = useTypedSelector(state => state.posts)
     return (
-        <>
-            {props.syncPosts.map(post => <Post post={post} key={post.id} />)}
-        </>
+        posts && posts.length > 0 ?
+            <>{posts.map(post => <Post post={post} key={post.id} />)}</>
+            :
+            <p>No posts yet</p>
     )
 }
 
-const mapStateToProps = (state: IAppState): { syncPosts: IPost[] } => {
-    return { syncPosts: state.posts.posts }
-}
-
-export default connect(mapStateToProps, null)(Posts)
+export default Posts

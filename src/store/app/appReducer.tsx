@@ -2,7 +2,7 @@ import { HIDE_LOADER, SHOW_LOADER, SHOW_ALERT, HIDE_ALERT, IApplicationState, IA
 
 const initialState: IApplicationState = {
     loading: false,
-    alert: null
+    alert: ''
 }
 
 export const appReducer = (state = initialState, action: IApplicationAction) => {
@@ -14,7 +14,7 @@ export const appReducer = (state = initialState, action: IApplicationAction) => 
         case SHOW_ALERT:
             return { ...state, alert: action.payload }
         case HIDE_ALERT:
-            return { ...state, alert: null }
+            return { ...state, alert: '' }
         default: return state
     }
 }
