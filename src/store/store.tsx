@@ -6,3 +6,5 @@ export const store = combineReducers({
     app: appReducer,
     posts: postsReducer,
 })
+
+export type RootState = ReturnType<typeof store>;

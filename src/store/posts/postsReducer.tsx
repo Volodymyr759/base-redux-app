@@ -1,4 +1,4 @@
-import Post from '../../components/Post/Post';
+// import Post from '../../components/Post/Post';
 import { CREATE_POST, FETCH_POSTS, IPostsAction, IPostsState } from './types'
 import { IPost } from '../types';
 

@@ -16,16 +16,17 @@ export function fetchPosts() {
     return async (dispatch: Dispatch<any>) => {
         try {
             dispatch(showLoader())
-            const response = await fetch('htps://jsonplaceholder.typicode.com/posts?_limit=5')
+            const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5')
             const data = await response.json()
+            console.log('Posts from server: ', data)
             setTimeout(() => {
-                dispatch({ type: FETCH_POSTS, payload: data })
+                dispatch({ type: FETCH_POSTS, payload: data });
+                dispatch(hideLoader());
             }, 1000)
         } catch {
-            dispatch(showAlert('Getting posts from server failed'))
-        } finally {
-            dispatch(hideLoader())
-        }
+            dispatch(showAlert('Getting posts from server failed'));
+            dispatch(hideLoader());
+        } 
     }
 }
 

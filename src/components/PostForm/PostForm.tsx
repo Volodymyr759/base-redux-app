@@ -10,16 +10,16 @@ class PostForm extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
         this.state = {
-            title: this.props.title,
+            title: ''
         }
     }
 
     submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const { title } = this.state
-        if (title.length > 10) {
-            return this.props.showAlert('Validation error: title length should be 3-10 characters.')
+        if (this.state.title.length > 10) {
+            return this.props.showAlert('Validation error')
         }
+        const { title } = this.state
         const newPost: IPost = {
             title,
             id: Date.now().toString()
@@ -42,9 +42,6 @@ class PostForm extends React.Component<Props, State> {
     render() {
         return (
             <form onSubmit={this.submitHandler}>
-                {
-                    <Alert text={this.props.alert ? this.props.alert : ''} />
-                }
                 <div className="form-group">
                     <label htmlFor="title" className="form-label">Post Header</label>
                     <input
@@ -56,10 +53,11 @@ class PostForm extends React.Component<Props, State> {
                         onChange={this.changeInputHandler}
                     />
                 </div>
+                {this.props.alert ? <Alert text={this.props.alert} /> : null}
                 <button
                     className="btn btn-success m-3"
                     type="submit"
-                // disabled={this.state.title.length < 3}
+                // disabled={this.state.title.length < 3 || this.state.title.length > 10}
                 >
                     Create
                 </button>
@@ -73,7 +71,7 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = (state: IAppState) => ({
-    alert: state.app.alert
+    alert: state.app.alert,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostForm)

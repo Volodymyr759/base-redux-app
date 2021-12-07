@@ -5,7 +5,7 @@ export const HIDE_ALERT = 'APP/HIDE_ALERT'
 
 export interface IApplicationState {
     loading: boolean;
-    alert: string | null;
+    alert: string;
 }
 
 export interface IApplicationAction {
